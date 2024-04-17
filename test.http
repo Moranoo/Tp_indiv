@@ -1,0 +1,25 @@
+# GET http://localhost:3000/realisateurs
+
+POST http://localhost:3001/realisateurs
+Content-Type: application/json
+
+{
+    "nom": "Spielberg",
+    "prenom": "Steven",
+    "dateNaissance": "1946-12-18"
+}
+
+GET http://localhost:3001/realisateurs/1
+
+PUT http://localhost:3001/realisateurs/1
+Content-Type: application/json
+
+{
+    "nom": "Spielberg",
+    "prenom": "Steven",
+    "dateNaissance": "1946-12-18"
+}
+
+DELETE http://localhost:3001/realisateurs/1
+
+GET http://localhost:3001/realisateurs/1/films
