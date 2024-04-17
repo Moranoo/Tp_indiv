@@ -16,4 +16,4 @@ const SeanceSchema = new Schema({
     availableSeats: { type: Number, required: true },
 });
 
-export default mongoose.model<ISeance>("Seance", SeanceSchema);
+export default mongoose.model<ISeance>("Seance", SeanceSchema, "seances");

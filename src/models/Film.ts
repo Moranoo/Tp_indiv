@@ -2,7 +2,6 @@ import mongoose, { Schema, Document } from "mongoose";
 import { IRealisateur } from "./Realisateur";
 
 export interface IFilm extends Document {
-    id: string;
     title: string; 
     releaseYear: number; 
     genre: string; 
@@ -16,6 +15,6 @@ const FilmSchema = new Schema({
     directors: [{ type: Schema.Types.ObjectId, ref: "Realisateur" }],
 });
 
-const Film = mongoose.model<IFilm>("Film", FilmSchema);
+const Film = mongoose.model<IFilm>("Film", FilmSchema, "films");
 
 export default Film;

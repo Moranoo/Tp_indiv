@@ -1,25 +1,102 @@
-# GET http://localhost:3000/realisateurs
+@host = http://localhost:3001
 
-POST http://localhost:3001/realisateurs
+### voir tout les realisateurs
+GET {{host}}/api/realisateurs
+
+### voir tout les films
+GET {{host}}/api/films
+
+### voir tout les seances
+GET {{host}}/api/seances
+
+@host = http://localhost:3001
+
+### Create a Realisateur
+POST {{host}}/api/realisateurs
 Content-Type: application/json
 
 {
-    "nom": "Spielberg",
-    "prenom": "Steven",
-    "dateNaissance": "1946-12-18"
+  "nom": "Nolan",
+  "prenom": "Christopher",
+  "dateNaissance": "1970-07-30"
 }
 
-GET http://localhost:3001/realisateurs/1
+### Get All Realisateurs
+GET {{host}}/api/realisateurs
 
-PUT http://localhost:3001/realisateurs/1
+### Get Realisateur by ID
+GET {{host}}/api/realisateurs/66201a14f1214a6ed63cb1e0
+
+### Update Realisateur by ID
+PUT {{host}}/api/realisateurs/66201a14f1214a6ed63cb1e0
 Content-Type: application/json
 
 {
-    "nom": "Spielberg",
-    "prenom": "Steven",
-    "dateNaissance": "1946-12-18"
+  "nom": "Nolan",
+  "prenom": "Christopher R.",
+  "dateNaissance": "2025-07-30"
 }
 
-DELETE http://localhost:3001/realisateurs/1
+### Delete Realisateur by ID
+DELETE {{host}}/api/realisateurs/{realisateurId}
 
-GET http://localhost:3001/realisateurs/1/films
+### Create a Film
+POST {{host}}/api/films
+Content-Type: application/json
+
+{
+  "title": "Inception",
+  "releaseYear": 2010,
+  "genre": "Sci-Fi",
+  "directors": ["66201a14f1214a6ed63cb1e0"]
+}
+
+### Get All Films
+GET {{host}}/api/films
+
+### Get Film by ID
+GET {{host}}/api/films/66201ca1e97de6041b84fd77
+
+### Update Film by ID
+PUT {{host}}/api/films/{filmId}
+Content-Type: application/json
+{
+  "title": "Inception Updated",
+  "releaseYear": 2025,
+  "genre": "Action",
+  "directors": ["66201a14f1214a6ed63cb1e0"]
+}
+
+### Delete Film by ID
+DELETE {{host}}/api/films/{filmId}
+
+
+### Create a Seance
+POST {{host}}/api/seances
+Content-Type: application/json
+
+{
+  "date": "2023-12-15",
+  "time": "20:00",
+  "film": "66201ca1e97de6041b84fd77",
+  "availableSeats": 100
+}
+### Get All Seances
+GET {{host}}/api/seances
+
+### Get Seance by ID
+GET {{host}}/api/seances/66201e4a97b1df7727a6e62f
+
+### Update Seance by ID
+PUT {{host}}/api/seances/66201e4a97b1df7727a6e62f
+Content-Type: application/json
+
+{
+  "date": "2023-12-15",
+  "time": "22:00",
+  "film": "66201ca1e97de6041b84fd77",
+  "availableSeats": 150
+}
+
+### Delete Seance by ID
+DELETE {{host}}/api/seances/{seanceId}

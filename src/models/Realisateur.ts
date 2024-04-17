@@ -14,4 +14,4 @@ const RealisateurSchema = new Schema({
     dateNaissance: { type: Date, required: true },
 });
 
-export default mongoose.model<IRealisateur>("Realisateur", RealisateurSchema);
+export default mongoose.model<IRealisateur>("Realisateur", RealisateurSchema, "realisateurs");

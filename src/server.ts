@@ -1,32 +1,41 @@
-import express, {Express} from 'express';
-
+import express, { Express, Request, Response } from 'express';
+import mongoose from 'mongoose';
+import seanceRoutes from './routes/seanceRoutes';
 import filmRoutes from './routes/filmRoutes';
 import realisateurRoutes from './routes/realisateurRoutes';
-const app: Express = express();// initialisation de l'application express
+
+const app: Express = express();
 const PORT: number = 3001;
+const MONGO_URI: string = 'mongodb+srv://Morano:tYIxN4VVHBlzYfoO@clustercours.1gaktwp.mongodb.net/?retryWrites=true&w=majority';
 
-app.use(express.json())
-app.use('/api/films', filmRoutes)
-app.use('/api/realisateurs', realisateurRoutes)
+// Middleware de base pour le parsing JSON
+app.use(express.json());
 
+// Configuration des routes
+app.use('/api/films', filmRoutes);
+app.use('/api/realisateurs', realisateurRoutes);
+app.use('/api/seances', seanceRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Le serveur tourne sur http://localhost:${PORT}`);
+// Fonction pour connecter MongoDB
+async function connectDB() {
+    try {
+        await mongoose.connect(MONGO_URI);
+        console.log("Connexion à MongoDB réussie !");
+    } catch (error) {
+        console.error("Erreur de connexion à MongoDB:", error);
+    }
+}
+
+// Connexion à MongoDB
+connectDB();
+
+// Middleware de gestion des erreurs
+app.use((err: any, req: Request, res: Response, next: Function) => {
+    console.error(err); // Log de l'erreur
+    res.status(500).send({ message: "Une erreur interne est survenue" });
 });
 
-import mongoose from "mongoose";
-const uri = "mongodb+srv://Morano:tYIxN4VVHBlzYfoO@clustercours.1gaktwp.mongodb.net/?retryWrites=true&w=majority&appName=ClusterCours";
-
-
-async function run() {
-try {
-  // connexion à la base de données MongoDB
-  await mongoose.connect(uri);
-  await mongoose.connection.db.admin().command({ ping: 1 });
-  console.log("Ping réussi ! Connexion établie avec la base de données MongoDB.");
-} catch (e) {
-  console.error(e);
-}
-}
-// la fonction run est appelée pour établir la connexion avec la base de données
-run().catch(console.dir);
+// Démarrage du serveur
+app.listen(PORT, () => {
+    console.log(`Le serveur tourne sur http://localhost:${PORT}`);
+});
